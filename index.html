@@ -76,14 +76,14 @@
 
 /* ══════ RESET & BASE ══════ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
+html,body{height:100%;overflow:hidden;position:fixed;width:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:var(--body-fz)}
 
 /* ══════ SCREEN SYSTEM ══════ */
-.screen{display:none;flex-direction:column;height:100vh;position:absolute;inset:0;overflow:hidden}
+.screen{display:none;flex-direction:column;height:100vh;position:absolute;inset:0;overflow:hidden;-webkit-overflow-scrolling:touch}
 .screen.active{display:flex;animation:fadeUp .25s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:100px}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:120px;overscroll-behavior:contain}
 .scroll::-webkit-scrollbar{display:none}
 
 /* ══════ STATUS BAR ══════ */
@@ -615,10 +615,10 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="o-home-scroll"></div>
   <nav class="bnav">
-    <div class="bni on"><div class="ni">🏢</div><div class="nl">Portfolio</div></div>
-    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl">Building</div></div>
-    <div class="bni" onclick="toast('Analytics coming soon','b')"><div class="ni">📊</div><div class="nl">Reports</div></div>
-    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl">Payments</div></div>
+    <div class="bni on"><div class="ni">🏢</div><div class="nl" id="nl-portfolio-1">Portfolio</div></div>
+    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl" id="nl-building-1">Building</div></div>
+    <div class="bni" onclick="toast('Analytics coming soon','b')"><div class="ni">📊</div><div class="nl" id="nl-reports-1">Reports</div></div>
+    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl" id="nl-payments-1">Payments</div></div>
   </nav>
 </div>
 
@@ -628,10 +628,10 @@ textarea.ta:focus{border-color:var(--acc)}
   <div class="back" onclick="nav('o-home')">← My portfolio</div>
   <div class="scroll" id="o-building-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl">Portfolio</div></div>
-    <div class="bni on"><div class="ni">🏗️</div><div class="nl">Building</div></div>
-    <div class="bni" onclick="toast('Analytics coming soon','b')"><div class="ni">📊</div><div class="nl">Reports</div></div>
-    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl" id="nl-portfolio-2">Portfolio</div></div>
+    <div class="bni on"><div class="ni">🏗️</div><div class="nl" id="nl-building-2">Building</div></div>
+    <div class="bni" onclick="toast('Analytics coming soon','b')"><div class="ni">📊</div><div class="nl" id="nl-reports-2">Reports</div></div>
+    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl" id="nl-payments-2">Payments</div></div>
   </nav>
 </div>
 
@@ -641,10 +641,10 @@ textarea.ta:focus{border-color:var(--acc)}
   <div class="back" id="o-prop-back">← Back</div>
   <div class="scroll" id="o-property-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl">Portfolio</div></div>
-    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl">Building</div></div>
-    <div class="bni on"><div class="ni">🔑</div><div class="nl">Unit</div></div>
-    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl" id="nl-portfolio-3">Portfolio</div></div>
+    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl" id="nl-building-3">Building</div></div>
+    <div class="bni on"><div class="ni">🔑</div><div class="nl" id="nl-unit-1">Unit</div></div>
+    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl" id="nl-payments-3">Payments</div></div>
   </nav>
 </div>
 
@@ -655,10 +655,10 @@ textarea.ta:focus{border-color:var(--acc)}
   <div class="back" id="repair-back-btn">← Back</div>
   <div class="scroll" id="o-repair-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl">Portfolio</div></div>
-    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl">Building</div></div>
-    <div class="bni on"><div class="ni">🔧</div><div class="nl">Repair</div></div>
-    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('o-home')"><div class="ni">🏢</div><div class="nl" id="nl-portfolio-4">Portfolio</div></div>
+    <div class="bni" onclick="S.building?openBuilding(S.building):toast('Select a building first','a')"><div class="ni">🏗️</div><div class="nl" id="nl-building-4">Building</div></div>
+    <div class="bni on"><div class="ni">🔧</div><div class="nl" id="nl-repair-1">Repair</div></div>
+    <div class="bni" onclick="toast('Payments coming soon','b')"><div class="ni">💰</div><div class="nl" id="nl-payments-4">Payments</div></div>
   </nav>
 </div>
 <!-- ══════════════════════════════════════════════════
@@ -674,11 +674,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-home-scroll"></div>
   <nav class="bnav">
-    <div class="bni on"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni" onclick="nav('t-evidence')"><div class="ni">📹</div><div class="nl">Evidence</div></div>
-    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni on"><div class="ni">🏠</div><div class="nl" id="nl-home-1">Home</div></div>
+    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl" id="nl-report-1">Report</div></div>
+    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl" id="nl-cases-1">Cases</div></div>
+    <div class="bni" onclick="nav('t-evidence')"><div class="ni">📹</div><div class="nl" id="nl-evidence-1">Evidence</div></div>
+    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl" id="nl-payments-5">Payments</div></div>
   </nav>
 </div>
 
@@ -692,11 +692,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-report-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni on"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni" onclick="nav('t-evidence')"><div class="ni">📹</div><div class="nl">Evidence</div></div>
-    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl" id="nl-home-2">Home</div></div>
+    <div class="bni on"><div class="ni">📋</div><div class="nl" id="nl-report-2">Report</div></div>
+    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl" id="nl-cases-2">Cases</div></div>
+    <div class="bni" onclick="nav('t-evidence')"><div class="ni">📹</div><div class="nl" id="nl-evidence-2">Evidence</div></div>
+    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl" id="nl-payments-6">Payments</div></div>
   </nav>
 </div>
 
@@ -712,11 +712,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-community-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni on"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni" onclick="nav('t-evidence')"><div class="ni">🎙️</div><div class="nl">Evidence</div></div>
-    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl" id="nl-home-3">Home</div></div>
+    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl" id="nl-report-3">Report</div></div>
+    <div class="bni on"><div class="ni">⚖️</div><div class="nl" id="nl-cases-3">Cases</div></div>
+    <div class="bni" onclick="nav('t-evidence')"><div class="ni">🎙️</div><div class="nl" id="nl-evidence-3">Evidence</div></div>
+    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl" id="nl-payments-7">Payments</div></div>
   </nav>
 </div>
 
@@ -730,11 +730,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-evidence-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni on"><div class="ni">📹</div><div class="nl">Evidence</div></div>
-    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl" id="nl-home-4">Home</div></div>
+    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl" id="nl-report-4">Report</div></div>
+    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl" id="nl-cases-4">Cases</div></div>
+    <div class="bni on"><div class="ni">📹</div><div class="nl" id="nl-evidence-4">Evidence</div></div>
+    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl" id="nl-payments-8">Payments</div></div>
   </nav>
 </div>
 
@@ -783,11 +783,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-payments-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni" onclick="nav('t-evidence')"><div class="ni">🎙️</div><div class="nl">Evidence</div></div>
-    <div class="bni on"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl" id="nl-home-5">Home</div></div>
+    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl" id="nl-report-5">Report</div></div>
+    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl" id="nl-cases-5">Cases</div></div>
+    <div class="bni" onclick="nav('t-evidence')"><div class="ni">🎙️</div><div class="nl" id="nl-evidence-5">Evidence</div></div>
+    <div class="bni on"><div class="ni">💳</div><div class="nl" id="nl-payments-9">Payments</div></div>
   </nav>
 </div>
 
@@ -801,11 +801,11 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="t-status-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl">Home</div></div>
-    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl">Report</div></div>
-    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl">Cases</div></div>
-    <div class="bni on"><div class="ni">🏢</div><div class="nl">Building</div></div>
-    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl">Payments</div></div>
+    <div class="bni" onclick="nav('t-home')"><div class="ni">🏠</div><div class="nl" id="nl-home-6">Home</div></div>
+    <div class="bni" onclick="nav('t-report')"><div class="ni">📋</div><div class="nl" id="nl-report-6">Report</div></div>
+    <div class="bni" onclick="nav('t-community')"><div class="ni">⚖️</div><div class="nl" id="nl-cases-6">Cases</div></div>
+    <div class="bni on"><div class="ni">🏢</div><div class="nl" id="nl-building-5">Building</div></div>
+    <div class="bni" onclick="nav('t-payments')"><div class="ni">💳</div><div class="nl" id="nl-payments-10">Payments</div></div>
   </nav>
 </div>
 
@@ -819,10 +819,10 @@ textarea.ta:focus{border-color:var(--acc)}
   <div class="back" id="wtask-back">← My tasks</div>
   <div class="scroll" id="w-task-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl">My tasks</div></div>
-    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl">Schedule</div></div>
-    <div class="bni on"><div class="ni">🔧</div><div class="nl">Job detail</div></div>
-    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl">Earnings</div></div>
+    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl" id="nl-my-tasks-1">My tasks</div></div>
+    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl" id="nl-schedule-1">Schedule</div></div>
+    <div class="bni on"><div class="ni">🔧</div><div class="nl" id="nl-job-detail-1">Job detail</div></div>
+    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl" id="nl-earnings-1">Earnings</div></div>
   </nav>
 </div>
 <div class="screen" id="s-w-home">
@@ -833,10 +833,10 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="w-home-scroll"></div>
   <nav class="bnav">
-    <div class="bni on"><div class="ni">📋</div><div class="nl">My tasks</div></div>
-    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl">Schedule</div></div>
-    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl">Earnings</div></div>
-    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl">Report</div></div>
+    <div class="bni on"><div class="ni">📋</div><div class="nl" id="nl-my-tasks-2">My tasks</div></div>
+    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl" id="nl-schedule-2">Schedule</div></div>
+    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl" id="nl-earnings-2">Earnings</div></div>
+    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl" id="nl-report-7">Report</div></div>
   </nav>
 </div>
 
@@ -849,10 +849,10 @@ textarea.ta:focus{border-color:var(--acc)}
   </div>
   <div class="scroll" id="w-schedule-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl">My tasks</div></div>
-    <div class="bni on"><div class="ni">📅</div><div class="nl">Schedule</div></div>
-    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl">Earnings</div></div>
-    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl">Report</div></div>
+    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl" id="nl-my-tasks-3">My tasks</div></div>
+    <div class="bni on"><div class="ni">📅</div><div class="nl" id="nl-schedule-3">Schedule</div></div>
+    <div class="bni" onclick="nav('w-earnings')"><div class="ni">💵</div><div class="nl" id="nl-earnings-3">Earnings</div></div>
+    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl" id="nl-report-8">Report</div></div>
   </nav>
 </div>
 
@@ -861,14 +861,14 @@ textarea.ta:focus{border-color:var(--acc)}
   <div class="back" onclick="nav('w-home')">← My tasks</div>
   <div style="padding:6px var(--page-pad) 12px;flex-shrink:0">
     <div style="font-family:var(--font-head);font-size:var(--head-fz);font-weight:800">💵 My earnings</div>
-    <div style="font-size:var(--small-fz);font-weight:600;color:var(--muted);margin-top:3px">Paid directly — no middleman</div>
+    <div style="font-size:var(--small-fz);font-weight:600;color:var(--muted);margin-top:3px">${t('w_no_middleman') || 'Paid directly — no middleman'}</div>
   </div>
   <div class="scroll" id="w-earnings-scroll"></div>
   <nav class="bnav">
-    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl">My tasks</div></div>
-    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl">Schedule</div></div>
-    <div class="bni on"><div class="ni">💵</div><div class="nl">Earnings</div></div>
-    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl">Report</div></div>
+    <div class="bni" onclick="nav('w-home')"><div class="ni">📋</div><div class="nl" id="nl-my-tasks-4">My tasks</div></div>
+    <div class="bni" onclick="nav('w-schedule')"><div class="ni">📅</div><div class="nl" id="nl-schedule-4">Schedule</div></div>
+    <div class="bni on"><div class="ni">💵</div><div class="nl" id="nl-earnings-4">Earnings</div></div>
+    <div class="bni" onclick="toast('Report issue coming soon','b')"><div class="ni">🔧</div><div class="nl" id="nl-report-9">Report</div></div>
   </nav>
 </div>
 
@@ -1605,6 +1605,7 @@ function launchOwner(){
   
   document.getElementById('o-live-ind').style.color='var(--acc)';
   renderOwnerHome();
+  updateNavLabels();
   nav('o-home');
 }
 
@@ -1618,33 +1619,44 @@ function renderOwnerHome(){
   let crit=0,warn=0,totalFee=0;
   OWNER_BUILDINGS.forEach(bid=>{
     BUILDINGS[bid].props.forEach(apt=>{
-      const p=PROPS[apt+'_'+bid];
-      if(!p)return;
+      const p=PROPS[apt+'_'+bid];if(!p)return;
       if(p.status==='critical')crit++;
       else if(p.status==='alert')warn++;
       totalFee+=p.fee;
     });
   });
-  document.getElementById('o-greeting').textContent=greet2(S.user.name);
-  if(crit>0){playSound('critical');}
-  else if(warn>0){playSound('alert');}
+  sset('o-greeting', greet2(S.user.name));
+  sset('o-meta', t('o_enterprise')+' · '+OWNER_BUILDINGS.length+' '+t('o_buildings').toLowerCase());
+  if(crit>0) playSound('critical');
+  else if(warn>0) playSound('alert');
 
   let html=`
   <div style="margin:0 var(--page-pad) 14px;background:linear-gradient(135deg,#1A1D35,#1A1D25);border:1px solid rgba(108,99,255,.2);border-radius:var(--radius-card);padding:20px">
-    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Portfolio · monthly income</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">${t('o_portfolio')} · ${t('o_monthly_income').toLowerCase()}</div>
     <div style="font-family:var(--font-head);font-size:38px;font-weight:800;letter-spacing:-2px;color:#fff;line-height:1">$${(totalFee/1000).toFixed(0)}K <span style="font-size:16px;opacity:.4">COP/mo</span></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px">
-      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:#fff">${OWNER_BUILDINGS.length}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">Buildings</div></div>
-      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:#fff">${OWNER_BUILDINGS.reduce((a,b)=>a+BUILDINGS[b].props.length,0)}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">Your units</div></div>
-      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${crit>0?'var(--red)':warn>0?'var(--amber)':'var(--green)'}">${crit+warn}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">Issues</div></div>
+      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:#fff">${OWNER_BUILDINGS.length}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">${t('o_buildings')}</div></div>
+      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:#fff">${OWNER_BUILDINGS.reduce((a,b)=>a+BUILDINGS[b].props.length,0)}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">${t('o_your_units')}</div></div>
+      <div style="background:rgba(255,255,255,.05);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${crit>0?'var(--red)':warn>0?'var(--amber)':'var(--green)'}">${crit+warn}</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px">${t('o_issues')}</div></div>
     </div>
   </div>`;
 
-  if(crit>0){html+=`<div onclick="handleOwnerAlert()" style="margin:0 var(--page-pad) 14px;background:var(--red-bg);border:2px solid var(--red-bd);border-radius:var(--radius-card);padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer"><div style="width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;animation:rpulse 1.3s infinite"></div><div style="flex:1"><div style="font-size:var(--small-fz);font-weight:800;color:var(--red)">${crit} propert${crit>1?'ies':'y'} with critical issues</div><div style="font-size:12px;color:var(--muted);font-weight:600">Overdue payments · Tap to review</div></div><span style="color:var(--red)">›</span></div>`;}
+  if(crit>0){html+=`<div onclick="handleOwnerAlert()" style="margin:0 var(--page-pad) 14px;background:var(--red-bg);border:2px solid var(--red-bd);border-radius:var(--radius-card);padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer"><div style="width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;animation:rpulse 1.3s infinite"></div><div style="flex:1"><div style="font-size:var(--small-fz);font-weight:800;color:var(--red)">${crit} ${crit>1?t('o_buildings').toLowerCase():t('o_buildings').toLowerCase()} ${t('o_critical').toLowerCase()}</div><div style="font-size:12px;color:var(--muted);font-weight:600">${t('o_send_reminder').replace('🚨','').trim()} · ${t('o_tap_detail')}</div></div><span style="color:var(--red)">›</span></div>`;}
 
-  html+=`<div class="slabel">Your buildings</div>`;
+  html+=`<div class="slabel">${t('o_your_buildings')}</div>`;
   OWNER_BUILDINGS.forEach(bid=>{ html+=buildingCardHTML(bid); });
   document.getElementById('o-home-scroll').innerHTML=html;
+}
+
+
+
+function handleOwnerAlert(){
+  for(const bid of OWNER_BUILDINGS){
+    for(const apt of BUILDINGS[bid].props){
+      const p=PROPS[apt+'_'+bid];
+      if(p&&p.status==='critical'){openBuilding(bid);return;}
+    }
+  }
 }
 
 function buildingCardHTML(bid){
@@ -1656,62 +1668,58 @@ function buildingCardHTML(bid){
     else if(p.status==='alert')hasWarn=true;
     ownerM2+=p.m2;ownerFee+=p.fee;
   });
-  const status=hasCrit?'r':hasWarn?'a':'g';
   const pct=((ownerM2/b.m2)*100).toFixed(1);
+  const statusLabel = hasCrit?t('o_critical'):hasWarn?t('o_alert'):t('o_all_good');
+  const statusChip  = hasCrit?'chip-r':hasWarn?'chip-a':'chip-g';
   return `<div class="bc" style="margin:0 var(--page-pad)" onclick="openBuilding('${bid}')">
     <div class="bc-top" style="background:linear-gradient(135deg,${b.color}20,${b.color}08)">
       <div class="bc-emoji">${b.icon}</div>
       <div><div class="bc-title">${b.name}</div><div class="bc-addr">${b.addr}</div></div>
       <div style="position:absolute;top:12px;right:14px;display:flex;align-items:center;gap:6px">
         <div style="width:9px;height:9px;border-radius:50%;background:${hasCrit?'var(--red)':hasWarn?'var(--amber)':'var(--green)'};${hasCrit?'animation:rpulse 1.3s infinite':''}"></div>
-        <span class="chip chip-${status}">${hasCrit?'Critical':hasWarn?'Alert':'All good'}</span>
+        <span class="chip ${statusChip}">${statusLabel}</span>
       </div>
     </div>
     <div class="bc-body">
       <div class="bc-stats">
-        <div class="bcs"><div class="bcs-v" style="color:${b.color}">${b.props.length}</div><div class="bcs-l">Your units</div></div>
-        <div class="bcs"><div class="bcs-v">${b.units}</div><div class="bcs-l">Total units</div></div>
-        <div class="bcs"><div class="bcs-v">${b.m2.toLocaleString()}</div><div class="bcs-l">Total m²</div></div>
+        <div class="bcs"><div class="bcs-v" style="color:${b.color}">${b.props.length}</div><div class="bcs-l">${t('o_your_units')}</div></div>
+        <div class="bcs"><div class="bcs-v">${b.units}</div><div class="bcs-l">${t('o_total_units')}</div></div>
+        <div class="bcs"><div class="bcs-v">${b.m2.toLocaleString()}</div><div class="bcs-l">${t('o_total_m2')}</div></div>
       </div>
       <div style="background:var(--faint);border-radius:11px;padding:10px 12px">
-        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px"><span>Your share of building</span><span style="color:var(--text)">${pct}%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px"><span>${t('o_your_share')}</span><span style="color:var(--text)">${pct}%</span></div>
         <div class="pct-wrap"><div class="pct-fill" style="width:${Math.min(100,pct*20)}%;background:${b.color}"></div></div>
-        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:3px">Monthly contribution: $${ownerFee.toLocaleString()} COP</div>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:3px">${t('o_monthly_contrib')}: $${ownerFee.toLocaleString()} COP</div>
       </div>
     </div>
   </div>`;
 }
 
-function handleOwnerAlert(){
-  for(const bid of OWNER_BUILDINGS){
-    for(const apt of BUILDINGS[bid].props){
-      const p=PROPS[apt+'_'+bid];
-      if(p&&p.status==='critical'){openBuilding(bid);return;}
-    }
-  }
-}
 
 function openBuilding(bid){
   S.building=bid;
   const b=BUILDINGS[bid];
+  let hasCrit=false,hasWarn=false;
   let html=`<div class="hero" style="margin:0 var(--page-pad) 4px;background:linear-gradient(135deg,${b.color}18,${b.color}06)">
     <div style="font-size:40px;opacity:.15;position:absolute;right:20px;top:50%;transform:translateY(-50%)">${b.icon}</div>
     <div class="hero-title" style="position:relative">${b.name}</div>
     <div class="hero-sub" style="position:relative">${b.addr}</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;position:relative">
-      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${b.units}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">Total units</div></div>
-      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${b.m2.toLocaleString()}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">Total m²</div></div>
-      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${Math.round(b.cleaning/b.target*100)>=90?'var(--green)':'var(--amber)'}">${Math.round(b.cleaning/b.target*100)}%</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">Cleaning</div></div>
+      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${b.units}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">${t('o_total_units')}</div></div>
+      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${b.m2.toLocaleString()}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">${t('o_total_m2')}</div></div>
+      <div style="background:rgba(255,255,255,.08);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${Math.round(b.cleaning/b.target*100)>=90?'var(--green)':'var(--amber)'}">${Math.round(b.cleaning/b.target*100)}%</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">${t('o_cleaning_pct')}</div></div>
     </div>
   </div>
-  <div class="slabel">Admin — March 2026</div>
+  <div class="slabel">${t('o_admin')} — March 2026</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 var(--page-pad);margin-bottom:4px">
-    <div class="sbox"><div class="sbox-dot" style="background:var(--green)"></div><div class="sbox-val" style="color:var(--green);font-size:22px">${b.cleaning}/${b.target}</div><div class="sbox-lbl">Cleaning sessions</div></div>
-    <div class="sbox"><div class="sbox-dot" style="background:var(--blue)"></div><div class="sbox-val" style="font-size:18px;color:var(--blue)">$${(b.fee/1000000).toFixed(1)}M</div><div class="sbox-lbl">Monthly fee (COP)</div></div>
-  </div>
-  <div class="slabel">Your ${b.props.length} unit${b.props.length>1?'s':''}</div>`;
+    <div class="sbox"><div class="sbox-dot" style="background:var(--green)"></div><div class="sbox-val" style="color:var(--green);font-size:22px">${b.cleaning}/${b.target}</div><div class="sbox-lbl">${t('o_cleaning_sessions')}</div></div>
+    <div class="sbox"><div class="sbox-dot" style="background:var(--blue)"></div><div class="sbox-val" style="font-size:18px;color:var(--blue)">$${(b.fee/1000000).toFixed(1)}M</div><div class="sbox-lbl">${t('o_monthly_fee')} (COP)</div></div>
+  </div>`;
 
-  let hasCrit=false,hasWarn=false;
+  const nUnits = b.props.length;
+  const unitsLabel = nUnits === 1 ? t('o_your_n_units') : t('o_your_n_units_pl').replace('{n}', nUnits);
+  html += `<div class="slabel">${unitsLabel}</div>`;
+
   b.props.forEach(apt=>{
     const p=PROPS[apt+'_'+bid];if(!p)return;
     if(p.status==='critical')hasCrit=true;
@@ -1724,32 +1732,39 @@ function openBuilding(bid){
   nav('o-building');
 }
 
+
 function propCardHTML(p,bid){
   const b=BUILDINGS[bid];
   const cleanPct=Math.round(p.clean/p.target*100);
   const sc=p.status==='critical'?'r':p.status==='alert'?'a':'g';
-  let issHtml=p.issues.length?p.issues.map(i=>`<div style="font-size:12px;font-weight:700;background:var(--${sc==='r'?'red':sc==='a'?'amb':'grn'}-bg);color:var(--${sc==='r'?'red':sc==='a'?'amber':'green'});border-radius:8px;padding:5px 9px;margin-top:5px">⚠️ ${i}</div>`).join(''):'<div style="font-size:12px;font-weight:700;color:var(--green)">✅ No issues</div>';
+  const statusLabel = p.status==='critical'?'🔴 '+t('o_critical'):p.status==='alert'?'🟡 '+t('o_alert'):'🟢 '+t('o_all_good');
+  const reps=(typeof REPAIR_REQUESTS!=='undefined'&&REPAIR_REQUESTS[p.apt+'_'+p.bid])||[];
+  const openReps=reps.filter(r=>r.status!=='done').length;
+  const issHtml = p.issues.length
+    ? p.issues.map(i=>`<div style="font-size:12px;font-weight:700;background:var(--${sc==='r'?'red':sc==='a'?'amb':'grn'}-bg);color:var(--${sc==='r'?'red':sc==='a'?'amber':'green'});border-radius:8px;padding:5px 9px;margin-top:5px">⚠️ ${i}</div>`).join('')
+    : `<div style="font-size:12px;font-weight:700;color:var(--green)">${t('o_no_issues')}</div>`;
   return `<div class="pc ${p.status==='critical'?'crit':p.status==='alert'?'warn':'ok'}" style="margin:0 var(--page-pad)" onclick="openProperty('${p.apt}','${bid}')">
     <div class="pc-stripe stripe-${sc}"></div>
     <div class="pc-body">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div class="pc-apt">APT ${p.apt}</div><div class="pc-floor">Floor ${p.floor} · ${p.m2}m² · ${p.rooms}🛏 ${p.bath}🚿</div></div>
-        <div class="chip chip-${sc}">${p.status==='critical'?'🔴 Critical':p.status==='alert'?'🟡 Alert':'🟢 OK'}</div>
+        <div class="chip chip-${sc}">${statusLabel}</div>
       </div>
       <div class="pc-metrics">
-        <div class="pm"><div class="pm-l">Monthly fee</div><div class="pm-v" style="color:${p.paid?'var(--green)':'var(--red)'}">$${p.fee.toLocaleString()}</div><div class="pm-s">${p.paid?'✓ Paid':'⚠️ '+p.late+'d overdue'}</div></div>
-        <div class="pm"><div class="pm-l">Cleaning</div><div class="pm-v" style="color:${cleanPct>=90?'var(--green)':cleanPct>=70?'var(--amber)':'var(--red)'}">${cleanPct}%</div><div class="pm-s">${p.clean}/${p.target} sessions</div></div>
+        <div class="pm"><div class="pm-l">${t('o_monthly_fee')}</div><div class="pm-v" style="color:${p.paid?'var(--green)':'var(--red)'}">$${p.fee.toLocaleString()}</div><div class="pm-s">${p.paid?'✓ '+t('o_paid'):'⚠️ '+p.late+'d '+t('o_days_late')}</div></div>
+        <div class="pm"><div class="pm-l">${t('o_cleaning_pct')}</div><div class="pm-v" style="color:${cleanPct>=90?'var(--green)':cleanPct>=70?'var(--amber)':'var(--red)'}">${cleanPct}%</div><div class="pm-s">${p.clean}/${p.target} ${t('o_sessions')}</div></div>
       </div>
       <div style="background:var(--faint);border-radius:11px;padding:9px 11px;margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px"><span>Your share of ${b.name.split(' ')[0]}</span><span style="color:var(--text)">${p.pct}%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px"><span>${t('o_your_share')}</span><span style="color:var(--text)">${p.pct}%</span></div>
         <div class="pct-wrap"><div class="pct-fill" style="width:${Math.min(100,p.pct*18)}%;background:${b.color}"></div></div>
       </div>
       ${issHtml}
-      ${(()=>{const reps=(typeof REPAIR_REQUESTS!=='undefined'&&REPAIR_REQUESTS[p.apt+'_'+bid])||[];const pending=reps.filter(r=>r.status==='pending'||r.status==='quoted').length;return pending>0?`<div style="margin-top:8px;background:var(--amb-bg);border:1px solid var(--amb-bd);border-radius:10px;padding:7px 11px;font-size:12px;font-weight:800;color:var(--amber)">🔧 ${pending} repair request${pending>1?'s':''} need your attention</div>`:'';})()}
-      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-top:8px">Tap for full detail →</div>
+      ${openReps>0?`<div style="font-size:12px;font-weight:700;color:var(--amber);margin-top:6px">🔧 ${openReps} ${t('o_repairs').replace('🔧','').trim().toLowerCase()}</div>`:''}
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-top:8px">${t('o_tap_detail')}</div>
     </div>
   </div>`;
 }
+
 
 function openProperty(apt,bid){
   S.prop=apt;S.building=bid;
@@ -1759,8 +1774,10 @@ function openProperty(apt,bid){
   else if(p.status==='alert')playSound('alert');
 
   const ind=document.getElementById('o-prop-status-ind');
-  ind.textContent=p.status==='critical'?'⚠️ CRITICAL':p.status==='alert'?'⚠️ ALERT':'✅ OK';
-  ind.style.color=p.status==='critical'?'var(--red)':p.status==='alert'?'var(--amber)':'var(--green)';
+  if(ind){
+    ind.textContent=p.status==='critical'?'⚠️ '+t('o_critical').toUpperCase():p.status==='alert'?'⚠️ '+t('o_alert').toUpperCase():'✅ OK';
+    ind.style.color=p.status==='critical'?'var(--red)':p.status==='alert'?'var(--amber)':'var(--green)';
+  }
   document.getElementById('o-prop-back').onclick=()=>openBuilding(bid);
 
   const cleanPct=Math.round(p.clean/p.target*100);
@@ -1771,92 +1788,72 @@ function openProperty(apt,bid){
     <div class="hero-sub">${b.name} · Floor ${p.floor} · ${p.m2} m²</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px">
       <div style="background:rgba(0,0,0,.06);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${p.m2}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">m²</div></div>
-      <div style="background:rgba(0,0,0,.06);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${p.rooms}/${p.bath}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">Bed/Bath</div></div>
-      <div style="background:rgba(0,0,0,.06);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${b.color}">${p.pct}%</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">Building share</div></div>
+      <div style="background:rgba(0,0,0,.06);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800">${p.rooms}/${p.bath}</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">🛏/🚿</div></div>
+      <div style="background:rgba(0,0,0,.06);border-radius:11px;padding:10px;text-align:center"><div style="font-family:var(--font-head);font-size:18px;font-weight:800;color:${b.color}">${p.pct}%</div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-top:2px">${t('o_building_share')}</div></div>
     </div>
   </div>`;
 
   if(p.issues.length){
-    html+=`<div class="slabel">⚠️ Alerts</div>`;
+    html+=`<div class="slabel">${t('o_alerts')}</div>`;
     p.issues.forEach(i=>{
-      const isC=i.toLowerCase().includes('overdue')||i.toLowerCase().includes('behind');
+      const isC=i.toLowerCase().includes('overdue')||i.toLowerCase().includes('behind')||i.toLowerCase().includes('atrasado')||i.toLowerCase().includes('atrás');
       html+=`<div class="ibox ibox-${isC?'r':'a'}" style="margin:0 var(--page-pad) 8px"><div style="font-size:var(--small-fz);font-weight:800;color:var(--${isC?'red':'amber'})">⚠️ ${i}</div></div>`;
     });
   }
 
-  html+=`<div class="slabel">Payment</div>
+  html+=`<div class="slabel">${t('o_payment')}</div>
   <div style="padding:0 var(--page-pad)"><div class="card" style="margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)">
-      <div><div style="font-size:var(--body-fz);font-weight:700">${p.paid?'March 2026 — paid':'March 2026 — OVERDUE'}</div><div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px">${p.paid?'Paid on time':'Due Mar 5 · '+p.late+' days late'}</div></div>
+      <div><div style="font-size:var(--body-fz);font-weight:700">March 2026 — ${p.paid?t('o_paid'):t('o_overdue')}</div><div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px">${p.paid?'✓ '+t('o_paid'):t('o_due')+' Mar 5 · '+p.late+'d '+t('o_days_late')}</div></div>
       <div style="font-family:var(--font-head);font-size:16px;font-weight:800;color:${p.paid?'var(--green)':'var(--red)'}">$${p.fee.toLocaleString()}</div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0">
-      <div style="font-size:var(--small-fz);font-weight:600;color:var(--muted)">Building share (${p.pct}% of ${b.name.split(' ')[0]})</div>
+      <div style="font-size:var(--small-fz);font-weight:600;color:var(--muted)">${t('o_building_share')} (${p.pct}%)</div>
       <div style="font-size:var(--small-fz);font-weight:800">${p.pct}%</div>
     </div>
   </div></div>
-  <div class="slabel">Cleaning this month</div>
+  <div class="slabel">${t('o_cleaning')}</div>
   <div style="padding:0 var(--page-pad)"><div class="card" style="margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div><div style="font-size:var(--body-fz);font-weight:700">March 2026</div><div style="font-size:12px;color:var(--muted);font-weight:600">${p.clean} of ${p.target} sessions done</div></div>
+      <div><div style="font-size:var(--body-fz);font-weight:700">March 2026</div><div style="font-size:12px;color:var(--muted);font-weight:600">${p.clean} / ${p.target} ${t('o_sessions')}</div></div>
       <div style="font-family:var(--font-head);font-size:26px;font-weight:800;color:${cleanPct>=90?'var(--green)':cleanPct>=70?'var(--amber)':'var(--red)'}">${cleanPct}%</div>
     </div>
     <div class="pct-wrap"><div class="pct-fill" style="width:${cleanPct}%;background:${cleanPct>=90?'var(--green)':cleanPct>=70?'var(--amber)':'var(--red)'}"></div></div>
   </div></div>`;
 
-  if(!p.paid){
-    html+=`<div style="padding:0 var(--page-pad);margin-top:4px"><button class="btn btn-red" style="width:100%" onclick="toast('Payment reminder sent 🚨','r')"><span>Send payment reminder 🚨</span><span>›</span></button></div>`;
-  }
-
-  // ── REPAIR REQUESTS ──
+  // Repair requests
   const repairs = REPAIR_REQUESTS[p.apt+'_'+p.bid] || [];
-  html += `<div class="slabel">🔧 Repair requests</div><div style="padding:0 var(--page-pad) 10px">`;
+  html += `<div class="slabel">${t('o_repairs')}</div><div style="padding:0 var(--page-pad)">`;
   if(repairs.length === 0){
-    html += `<div class="ibox ibox-g"><div style="font-size:var(--small-fz);font-weight:700;color:var(--green)">✅ No pending repair requests</div></div>`;
+    html += `<div class="ibox ibox-g" style="margin-bottom:10px"><div style="font-size:var(--small-fz);font-weight:700;color:var(--green)">${t('o_no_repairs')}</div></div>`;
   } else {
     repairs.forEach(r => {
-      const statusColor = r.status==='pending'?'var(--red)':r.status==='quoted'?'var(--amber)':'var(--blue)';
-      const statusLabel = r.status==='pending'?'⏳ Awaiting your approval':r.status==='quoted'?'💬 Quote received — tap to approve':'🔧 Work in progress';
-      const statusBg    = r.status==='pending'?'var(--red-bg)':r.status==='quoted'?'var(--amb-bg)':'var(--blu-bg)';
-      const statusBd    = r.status==='pending'?'var(--red-bd)':r.status==='quoted'?'var(--amb-bd)':'var(--blu-bd)';
-      html += `<div onclick="openRepair('${r.id}','${p.apt}','${p.bid}')" style="background:${statusBg};border:2px solid ${statusBd};border-radius:var(--radius-card);padding:15px 16px;margin-bottom:10px;cursor:pointer;transition:opacity .15s" onmousedown="this.style.opacity='.85'" onmouseup="this.style.opacity='1'">
+      const sc=r.status==='pending'?'r':r.status==='quoted'?'a':'b';
+      const stLbl=r.status==='pending'?'⏳ '+t('o_overdue'):r.status==='quoted'?'💬 Quote':'🔧 In progress';
+      html += `<div style="background:var(--${sc==='r'?'red':sc==='a'?'amb':'blu'}-bg);border:2px solid var(--${sc==='r'?'red':sc==='a'?'amb':'blu'}-bd);border-radius:var(--radius-card);padding:14px 16px;margin-bottom:10px">
         <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:10px">
           <div style="font-size:28px;flex-shrink:0">${r.icon}</div>
           <div style="flex:1">
             <div style="font-size:var(--body-fz);font-weight:800">${r.title}</div>
-            <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px">${r.tenant} · Reported ${r.reported}${r.urgent?' · 🚨 Urgent':''}</div>
+            <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px">${r.tenant} · ${r.reported}${r.urgent?' · 🚨':''}</div>
           </div>
         </div>
-        <div style="font-size:12px;font-weight:800;color:${statusColor};margin-bottom:${r.status==='quoted'?'10':'0'}px">${statusLabel}</div>
-        ${r.status==='quoted'?`
-          <div style="background:rgba(0,0,0,.04);border-radius:11px;padding:10px 13px;margin-bottom:10px">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <div style="font-size:13px;font-weight:700">👷 ${r.worker}</div>
-                <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">PropOS fee 3% = $${Math.round(r.quote*0.03).toLocaleString()} · Worker gets $${Math.round(r.quote*0.97).toLocaleString()}</div>
-              </div>
-              <div style="font-family:var(--font-head);font-size:22px;font-weight:800">$${r.quote.toLocaleString()}</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="approveRepair('${r.id}')" style="flex:1;background:var(--green);color:#fff;border:none;border-radius:11px;padding:12px;font-family:var(--font-body);font-size:13px;font-weight:800;cursor:pointer">✅ Approve & pay</button>
-            <button onclick="toast('Quote declined','r')" style="flex:1;background:var(--faint);color:var(--muted);border:1px solid var(--border);border-radius:11px;padding:12px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer">Decline</button>
-          </div>`
-        :r.status==='in_progress'?`<div style="font-size:12px;font-weight:700;color:var(--muted)">👷 ${r.worker} · $${r.quote.toLocaleString()} COP · <span style="color:var(--green)">3-month guarantee active</span></div>`:
-        `<div style="font-size:12px;font-weight:700;color:var(--muted)">Waiting for PropOS to assign a worker and send a quote.</div>`}
+        <div style="font-size:12px;font-weight:800;color:var(--${sc==='r'?'red':sc==='a'?'amber':'blue'});margin-bottom:${r.status==='quoted'?'10':'0'}px">${stLbl}</div>
+        ${r.status==='quoted'?`<div style="background:rgba(0,0,0,.04);border-radius:11px;padding:10px 13px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:700">${r.worker}</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">PropOS fee: 3% · $${Math.round((r.quote||0)*0.03).toLocaleString()} COP</div></div><div style="font-family:var(--font-head);font-size:20px;font-weight:800">$${(r.quote||0).toLocaleString()}</div></div></div><div style="display:flex;gap:8px"><button onclick="approveRepair('${r.id}')" style="flex:1;background:var(--green);color:#fff;border:none;border-radius:11px;padding:11px;font-family:var(--font-body);font-size:13px;font-weight:800;cursor:pointer">✅ Approve & pay</button><button onclick="toast('Declined','r')" style="flex:1;background:var(--faint);color:var(--muted);border:1px solid var(--border);border-radius:11px;padding:11px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer">Decline</button></div>`:''}
       </div>`;
     });
   }
   html += `</div>`;
 
-  // ── ACTIONS ──
-  html += `<div style="padding:4px var(--page-pad) 16px">
-    <button class="btn btn-ghost" style="width:100%" onclick="toast('Report generated')"><span>📊 Download report</span><span>›</span></button>
-  </div>`;
+  if(!p.paid){
+    html+=`<div style="padding:0 var(--page-pad);margin-top:4px"><button class="btn btn-red" style="width:100%" onclick="toast('${t('o_send_reminder')}','r')"><span>${t('o_send_reminder')}</span><span>›</span></button></div>`;
+  }
+  html+=`<div style="padding:10px var(--page-pad) 0"><button class="btn btn-ghost" style="width:100%" onclick="toast('Report generated')"><span>${t('o_download_report')}</span><span>›</span></button></div>`;
 
   document.getElementById('o-property-scroll').innerHTML=html;
   nav('o-property');
 }
+
 
 function approveRepair(id) {
   playSound('success');
@@ -1878,6 +1875,7 @@ function launchTenant(){
   renderTenantCommunity();
   renderTenantPayments();
   renderTenantStatus();
+  updateNavLabels();
   nav('t-home');
 }
 
@@ -1887,14 +1885,14 @@ function renderTenantHome(){
   <!-- STATUS BANNER -->
   <div style="margin:0 var(--page-pad) 12px;background:var(--grn-bg);border:2px solid var(--grn-bd);border-radius:var(--radius-card);padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="nav('t-status')">
     <div style="font-size:26px">🏢</div>
-    <div style="flex:1"><div style="font-size:14px;font-weight:800;color:var(--green)">Building is running well</div><div style="font-size:12px;font-weight:600;color:var(--green);opacity:.8">Tap to see full status</div></div>
+    <div style="flex:1"><div style="font-size:14px;font-weight:800;color:var(--green)">${t('building_ok')}</div><div style="font-size:12px;font-weight:600;color:var(--green);opacity:.8">${t('building_ok_sub')}</div></div>
     <div style="color:var(--green);opacity:.5;font-size:18px">›</div>
   </div>
 
   <!-- SINGLE BIG REPORT BUTTON -->
   <div style="padding:0 var(--page-pad);margin-bottom:12px">
     <button onclick="nav('t-report')" style="width:100%;background:var(--red);color:#fff;border:none;border-radius:var(--radius-card);padding:22px 20px;font-family:var(--font-head);font-size:19px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:space-between;letter-spacing:-.3px;transition:opacity .15s" onmousedown="this.style.opacity='.85'" onmouseup="this.style.opacity='1'">
-      <span>📋  Report or request</span><span style="font-size:22px">›</span>
+      <span>${t('report_btn')}</span><span style="font-size:22px">›</span>
     </button>
   </div>
 
@@ -1903,17 +1901,17 @@ function renderTenantHome(){
     <button onclick="nav('t-evidence')" style="background:var(--pur-bg);border:2px solid var(--pur-bd);border-radius:var(--radius-card);padding:16px 14px;font-family:var(--font-body);cursor:pointer;display:flex;flex-direction:column;gap:8px;text-align:left;transition:opacity .15s" onmousedown="this.style.opacity='.85'" onmouseup="this.style.opacity='1'">
       <div style="font-size:28px">📹</div>
       <div style="font-size:14px;font-weight:800;color:var(--purple)">Record evidence</div>
-      <div style="font-size:11px;font-weight:600;color:var(--purple);opacity:.7">Camera + dB meter</div>
+      <div style="font-size:11px;font-weight:600;color:var(--purple);opacity:.7">${t('record_sub')}</div>
     </button>
     <button onclick="triggerEmergency()" style="background:var(--amb-bg);border:2px solid var(--amb-bd);border-radius:var(--radius-card);padding:16px 14px;font-family:var(--font-body);cursor:pointer;display:flex;flex-direction:column;gap:8px;text-align:left;transition:opacity .15s" onmousedown="this.style.opacity='.85'" onmouseup="this.style.opacity='1'">
       <div style="font-size:28px">🚨</div>
-      <div style="font-size:14px;font-weight:800;color:var(--amber)">Emergency</div>
-      <div style="font-size:11px;font-weight:600;color:var(--amber);opacity:.7">Call security now</div>
+      <div style="font-size:14px;font-weight:800;color:var(--amber)">${t('emergency')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--amber);opacity:.7">${t('emergency_sub')}</div>
     </button>
   </div>
 
   <!-- MY RECENT REQUESTS -->
-  <div class="slabel" style="padding-top:0">Recent requests</div>
+  <div class="slabel" style="padding-top:0">${t('recent_req')}</div>
   <div style="padding:0 var(--page-pad)">
     <div class="rcard"><div class="rcard-ic" style="background:var(--blu-bg)">🧹</div><div style="flex:1"><div style="font-size:var(--body-fz);font-weight:800">Cleaning · Floor 8 hallway</div><div style="font-size:12px;font-weight:600;color:var(--muted)">Yesterday · María G.</div><div class="prog"><div class="prog-f" style="width:100%;background:var(--green)"></div></div></div><div class="chip chip-g">Done</div></div>
     <div class="rcard" onclick="nav('t-community')"><div class="rcard-ic" style="background:var(--red-bg)">🔊</div><div style="flex:1"><div style="font-size:var(--body-fz);font-weight:800">Noise · APT 1204</div><div style="font-size:12px;font-weight:600;color:var(--muted)">2 days ago · AI reviewing</div><div class="prog"><div class="prog-f" style="width:70%;background:var(--amber)"></div></div></div><div class="chip chip-a">Reviewing</div></div>
@@ -1921,7 +1919,7 @@ function renderTenantHome(){
   </div>
 
   <!-- ONGOING REPAIRS -->
-  <div class="slabel">Ongoing repairs</div>
+  <div class="slabel">${t('ongoing_rep')}</div>
   <div style="padding:0 var(--page-pad)">
     <div style="background:var(--amb-bg);border:2px solid var(--amb-bd);border-radius:var(--radius-card);padding:14px 15px;display:flex;align-items:center;gap:12px;margin-bottom:10px">
       <div style="font-size:28px">🛗</div>
@@ -1935,7 +1933,7 @@ function renderTenantHome(){
   </div>
 
   <!-- WORKERS ON DUTY -->
-  <div class="slabel">Workers on duty now</div>
+  <div class="slabel">${t('workers_now')}</div>
   <div id="t-workers-strip" style="display:flex;gap:10px;padding:0 var(--page-pad);overflow-x:auto;padding-bottom:6px">
     <!-- rendered by renderWorkerStrip() -->
   </div>
@@ -1981,40 +1979,40 @@ function renderTenantReport(){
     </div>
   </div>
 
-  <div class="slabel" style="padding-top:0">What do you need?</div>
+  <div class="slabel" style="padding-top:0">${t('what_need')}</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 var(--page-pad);margin-bottom:4px">
     <div class="ttype sel" id="cat-noise" onclick="selectCat('noise')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px;border-color:var(--red-bd);background:var(--red-bg)">
-      <div style="font-size:24px">🔊</div><div class="ttl" style="color:var(--red)">Noise complaint</div>
-      <div style="font-size:11px;font-weight:600;color:var(--red);opacity:.7">Bad neighbour · loud music</div>
+      <div style="font-size:24px">🔊</div><div class="ttl" style="color:var(--red)">${t('cat_noise')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--red);opacity:.7">${t('cat_noise_sub')}</div>
     </div>
     <div class="ttype" id="cat-repair" onclick="selectCat('repair')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px">
-      <div style="font-size:24px">🔧</div><div class="ttl">Broken in my apt</div>
-      <div style="font-size:11px;font-weight:600;color:var(--muted)">Pipes · electricity · AC</div>
+      <div style="font-size:24px">🔧</div><div class="ttl">${t('cat_repair')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted)">${t('cat_repair_sub')}</div>
       <div style="font-size:10px;font-weight:800;background:var(--grn-bg);color:var(--green);padding:2px 8px;border-radius:8px">Owner pays</div>
     </div>
     <div class="ttype" id="cat-cleaning" onclick="selectCat('cleaning')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px">
-      <div style="font-size:24px">🧹</div><div class="ttl">Common area clean</div>
-      <div style="font-size:11px;font-weight:600;color:var(--muted)">Lobby · gym · pool</div>
+      <div style="font-size:24px">🧹</div><div class="ttl">${t('cat_cleaning')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted)">${t('cat_cleaning_sub')}</div>
     </div>
     <div class="ttype" id="cat-private" onclick="selectCat('private')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px">
-      <div style="font-size:24px">🏠</div><div class="ttl">Clean my apartment</div>
-      <div style="font-size:11px;font-weight:600;color:var(--muted)">Extra service inside</div>
+      <div style="font-size:24px">🏠</div><div class="ttl">${t('cat_private')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted)">${t('cat_private_sub')}</div>
       <div style="font-size:10px;font-weight:800;background:var(--blu-bg);color:var(--blue);padding:2px 8px;border-radius:8px">You pay</div>
     </div>
     <div class="ttype" id="cat-security" onclick="selectCat('security')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px">
-      <div style="font-size:24px">🚨</div><div class="ttl">Security concern</div>
-      <div style="font-size:11px;font-weight:600;color:var(--muted)">Suspicious person</div>
+      <div style="font-size:24px">🚨</div><div class="ttl">${t('cat_security')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted)">${t('cat_security_sub')}</div>
     </div>
     <div class="ttype" id="cat-other" onclick="selectCat('other')" style="flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px">
-      <div style="font-size:24px">✏️</div><div class="ttl">Something else</div>
-      <div style="font-size:11px;font-weight:600;color:var(--muted)">Any other request</div>
+      <div style="font-size:24px">✏️</div><div class="ttl">${t('cat_other')}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted)">${t('cat_other_sub')}</div>
     </div>
   </div>
 
   <div id="report-context" style="padding:0 var(--page-pad)"></div>
 
-  <div class="slabel">Describe it <span style="font-weight:600;color:var(--muted);font-size:10px">(optional)</span></div>
-  <div style="padding:0 var(--page-pad)"><textarea class="ta" rows="3" id="report-desc" placeholder="Tell us what's happening..."></textarea></div>
+  <div class="slabel">${t('desc_label')} <span style="font-weight:600;color:var(--muted);font-size:10px">(optional)</span></div>
+  <div style="padding:0 var(--page-pad)"><textarea class="ta" rows="3" id="report-desc" placeholder="${t('desc_placeholder')}"></textarea></div>
 
   <div id="evidence-shortcut" style="margin:10px var(--page-pad) 0;background:var(--pur-bg);border:2px solid var(--pur-bd);border-radius:var(--radius-card);padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="nav('t-evidence')">
     <div style="font-size:22px">📹</div>
@@ -2203,7 +2201,7 @@ function renderTenantPayments(){
   const html=`
   <div style="padding:0 var(--page-pad)">
   <div style="background:linear-gradient(135deg,var(--green),#0E4728);border-radius:var(--radius-card);padding:22px;color:#fff;margin-bottom:14px">
-    <div style="font-size:11px;font-weight:800;opacity:.55;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Your monthly fee</div>
+    <div style="font-size:11px;font-weight:800;opacity:.55;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">${t('monthly_fee')}</div>
     <div style="font-family:var(--font-head);font-size:42px;font-weight:800;letter-spacing:-2px;line-height:1">$${fee.toLocaleString()}</div>
     <div style="font-size:13px;font-weight:700;opacity:.65;margin-top:4px">COP · due 5th of each month</div>
     <div style="margin-top:12px;background:rgba(255,255,255,.1);border-radius:11px;padding:9px 13px;font-size:13px;font-weight:700">✅ March 2026 — Paid on March 1</div>
@@ -2221,15 +2219,15 @@ function renderTenantPayments(){
 function renderTenantStatus(){
   const html=`
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:0 var(--page-pad);margin-bottom:12px">
-    ${[['🧹','✓','var(--green)','Cleaned today'],['🔒','ON','var(--green)','Security active'],['🛗','1','var(--amber)','Elevator under repair'],['⚖️','1','var(--red)','Active AI case']].map(s=>`<div class="sbox"><div style="font-size:24px;margin-bottom:8px">${s[0]}</div><div class="sbox-val" style="color:${s[2]}">${s[1]}</div><div class="sbox-lbl">${s[3]}</div></div>`).join('')}
+    ${(()=>{const items=[["🧹","✓","var(--green)",t("cleaned_today")],["🔒","ON","var(--green)",t("security_active")],["🛗","1","var(--amber)",t("elevator_repair")],["⚖️","1","var(--red)",t("active_case")]];return items.map(s=>`<div class="sbox"><div style="font-size:24px;margin-bottom:8px">${s[0]}</div><div class="sbox-val" style="color:${s[2]}">${s[1]}</div><div class="sbox-lbl">${s[3]}</div></div>`).join("");})()}
   </div>
-  <div class="slabel">On duty today</div>
+  <div class="slabel">${t('on_duty')}</div>
   <div style="padding:0 var(--page-pad)">
     <div class="stcard"><div class="av" style="width:42px;height:42px;background:var(--green);color:#fff;font-size:15px">M</div><div style="flex:1"><div style="font-size:var(--body-fz);font-weight:800">María González</div><div style="font-size:12px;font-weight:600;color:var(--muted)">🧹 Cleaning · Started 7am</div></div><div style="font-size:11px;font-weight:800;padding:5px 11px;border-radius:20px;background:var(--grn-bg);color:var(--green)">On shift</div></div>
     <div class="stcard"><div class="av" style="width:42px;height:42px;background:var(--blue);color:#fff;font-size:15px">C</div><div style="flex:1"><div style="font-size:var(--body-fz);font-weight:800">Carlos Ramírez</div><div style="font-size:12px;font-weight:600;color:var(--muted)">🔒 Security · Tonight 10pm</div></div><div style="font-size:11px;font-weight:800;padding:5px 11px;border-radius:20px;background:var(--blu-bg);color:var(--blue)">Tonight</div></div>
     <div class="stcard"><div class="av" style="width:42px;height:42px;background:var(--amber);color:#fff;font-size:15px">J</div><div style="flex:1"><div style="font-size:var(--body-fz);font-weight:800">Jorge Mendoza</div><div style="font-size:12px;font-weight:600;color:var(--muted)">🔧 Maintenance · 2pm</div></div><div style="font-size:11px;font-weight:800;padding:5px 11px;border-radius:20px;background:var(--amb-bg);color:var(--amber)">Coming 2pm</div></div>
   </div>
-  <div class="slabel">Announcements</div>
+  <div class="slabel">${t('announcements')}</div>
   <div style="padding:0 var(--page-pad)">
     <div class="ibox ibox-a" style="margin-bottom:10px"><div class="ibox-t" style="color:var(--amber)">🛗 Elevator B under repair</div><div class="ibox-b-text">TecnoLift working today. Back by 4pm. Please use Elevator A.</div></div>
     <div class="ibox ibox-g"><div class="ibox-t" style="color:var(--green)">🎊 Cleanliness score: 94%</div><div class="ibox-b-text">22 of 22 cleaning sessions completed this month. Excellent work!</div></div>
@@ -2346,84 +2344,82 @@ function renderWorkerHome(){
   const profile  = WORKER_PROFILES[u.email] || { rating:4.5, jobs:0, guarantees:0, activeGuarantees:0 };
 
   let html = `
-  <!-- EARNINGS + PROFILE HERO -->
   <div style="margin:0 var(--page-pad) 12px;background:linear-gradient(135deg,#1A6B42,#0E4728);border-radius:var(--radius-card);padding:20px;color:#fff">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <div>
-        <div style="font-size:11px;font-weight:800;opacity:.5;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Today's earnings</div>
+        <div style="font-size:11px;font-weight:800;opacity:.5;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${t('w_todays_earn')}</div>
         <div style="font-family:var(--font-head);font-size:36px;font-weight:800;letter-spacing:-2px;line-height:1">$${todayEarn.toLocaleString()} <span style="font-size:14px;opacity:.5">COP</span></div>
       </div>
       <div style="text-align:right">
         <div style="font-family:var(--font-head);font-size:26px;font-weight:800;color:#FCD34D">${profile.rating}★</div>
-        <div style="font-size:11px;opacity:.6;margin-top:2px">${profile.jobs} jobs done</div>
+        <div style="font-size:11px;opacity:.6;margin-top:2px">${profile.jobs} ${t('w_jobs_done')}</div>
       </div>
     </div>
     <div style="display:flex;gap:8px">
       <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:9px;text-align:center">
         <div style="font-family:var(--font-head);font-size:17px;font-weight:800">${pending.length}</div>
-        <div style="font-size:10px;opacity:.55;margin-top:2px">Tasks today</div>
+        <div style="font-size:10px;opacity:.55;margin-top:2px">${t('w_tasks_today')}</div>
       </div>
       <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:9px;text-align:center">
         <div style="font-family:var(--font-head);font-size:17px;font-weight:800">3%</div>
-        <div style="font-size:10px;opacity:.55;margin-top:2px">PropOS fee</div>
+        <div style="font-size:10px;opacity:.55;margin-top:2px">${t('w_propos_fee')}</div>
       </div>
       <div style="flex:1;background:${profile.activeGuarantees>0?'rgba(245,166,35,.2)':'rgba(255,255,255,.08)'};border-radius:10px;padding:9px;text-align:center">
         <div style="font-family:var(--font-head);font-size:17px;font-weight:800;color:${profile.activeGuarantees>0?'#FCD34D':'#fff'}">${profile.activeGuarantees}</div>
-        <div style="font-size:10px;opacity:.55;margin-top:2px">Active guarantees</div>
+        <div style="font-size:10px;opacity:.55;margin-top:2px">${t('w_active_guar')}</div>
       </div>
     </div>
   </div>`;
 
-  // Pending ratings alert
   if(PENDING_RATINGS.length > 0){
     html += `<div style="margin:0 var(--page-pad) 10px;background:var(--amb-bg);border:2px solid var(--amb-bd);border-radius:var(--radius-card);padding:14px 16px">
-      <div style="font-size:14px;font-weight:800;color:var(--amber);margin-bottom:8px">⏳ Awaiting your client's rating</div>`;
+      <div style="font-size:14px;font-weight:800;color:var(--amber);margin-bottom:8px">${t('w_awaiting_rating')}</div>`;
     PENDING_RATINGS.forEach(r => {
       html += `<div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--amb-bd)">
         <div style="font-size:22px">🔧</div>
         <div style="flex:1">
           <div style="font-size:13px;font-weight:800">${r.title} · ${r.apt}</div>
-          <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">Completed ${r.completed} · <span style="color:var(--amber);font-weight:800">${r.daysLeft} day${r.daysLeft===1?'':'s'} left to rate</span></div>
+          <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">${t('w_completed')} ${r.completed} · <span style="color:var(--amber);font-weight:800">${r.daysLeft} ${r.daysLeft===1?t('w_day_left'):t('w_days_left')}</span></div>
         </div>
-        <div style="background:var(--amber);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800">Pending</div>
+        <div style="background:var(--amber);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800">${t('w_new')}</div>
       </div>`;
     });
-    html += `<div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:8px">Rating auto-closes as satisfied after 5 days. Your 3-month guarantee is active.</div></div>`;
+    html += `<div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:8px">${t('w_rating_note')}</div></div>`;
   }
 
-  html += `<div class="slabel">My tasks today</div><div style="padding:0 var(--page-pad)">`;
+  html += `<div class="slabel">${t('w_my_tasks')}</div><div style="padding:0 var(--page-pad)">`;
 
-  pending.forEach(t => {
-    const isNew = t.status==='new', isActive = t.status==='active';
-    html += `<div class="task-card ${isNew?'tc-new':isActive?'tc-active':''}" onclick="openWorkerTask('${t.id}')" style="cursor:pointer">
+  pending.forEach(tk => {
+    const isNew = tk.status==='new', isActive = tk.status==='active';
+    html += `<div class="task-card ${isNew?'tc-new':isActive?'tc-active':''}">
       <div class="tc-head">
-        <div class="tc-ic" style="background:${isNew?'var(--blu-bg)':isActive?'var(--amb-bg)':'var(--grn-bg)'}">${t.icon}</div>
+        <div class="tc-ic" style="background:${isNew?'var(--blu-bg)':isActive?'var(--amb-bg)':'var(--grn-bg)'}">${tk.icon}</div>
         <div style="flex:1">
-          <div class="tc-title">${t.title}</div>
-          <div class="tc-meta">${t.loc}</div>
-          <div class="tc-meta" style="margin-top:2px">⏰ ${t.time} · 💵 $${Math.round(t.pay*0.97).toLocaleString()} COP <span style="color:var(--muted)">(after 3% fee)</span></div>
+          <div class="tc-title">${tk.title}</div>
+          <div class="tc-meta">${tk.loc}</div>
+          <div class="tc-meta" style="margin-top:2px">⏰ ${tk.time} · 💵 $${Math.round(tk.pay*0.97).toLocaleString()} COP <span style="color:var(--muted)">${t('w_after_fee')}</span></div>
         </div>
-        <div class="chip ${isNew?'chip-b':isActive?'chip-a':'chip-g'}">${isNew?'New':isActive?'Active':'Done'}</div>
+        <div class="chip ${isNew?'chip-b':isActive?'chip-a':'chip-g'}">${isNew?t('w_new'):isActive?t('w_active'):t('w_done')}</div>
       </div>
-      ${isNew?`<div class="tc-actions"><button class="tca tca-acc" onclick="acceptTask('${t.id}',this)">Accept task</button><button class="tca tca-ghost" onclick="toast('Task skipped')">Skip</button></div>`:''}
-      ${isActive?`<div class="tc-actions"><button class="tca tca-acc" onclick="completeTask('${t.id}',this)">Mark complete ✓</button></div>`:''}
+      ${isNew?`<div class="tc-actions"><button class="tca tca-acc" onclick="acceptTask('${tk.id}',this)">${t('w_accept')}</button><button class="tca tca-ghost" onclick="toast('${t('w_skip')}')">${t('w_skip')}</button></div>`:''}
+      ${isActive?`<div class="tc-actions"><button class="tca tca-acc" onclick="completeTask('${tk.id}',this)">${t('w_mark_complete')}</button></div>`:''}
     </div>`;
   });
 
   if(done.length){
-    html += `</div><div class="slabel">Completed today</div><div style="padding:0 var(--page-pad)">`;
-    done.forEach(t => {
+    html += `</div><div class="slabel">${t('w_completed_today')}</div><div style="padding:0 var(--page-pad)">`;
+    done.forEach(tk => {
       html += `<div class="task-card tc-done"><div class="tc-head">
-        <div class="tc-ic" style="background:var(--grn-bg)">${t.icon}</div>
-        <div style="flex:1"><div class="tc-title">${t.title}</div><div class="tc-meta">${t.loc} · $${Math.round(t.pay*0.97).toLocaleString()} COP earned</div></div>
-        <div class="chip chip-g">✓ Done</div>
+        <div class="tc-ic" style="background:var(--grn-bg)">${tk.icon}</div>
+        <div style="flex:1"><div class="tc-title">${tk.title}</div><div class="tc-meta">${tk.loc} · $${Math.round(tk.pay*0.97).toLocaleString()} ${t('w_earned')}</div></div>
+        <div class="chip chip-g">✓ ${t('w_done')}</div>
       </div></div>`;
     });
   }
   html += `</div>`;
-
   document.getElementById('w-home-scroll').innerHTML = html;
 }
+
 
 
 function renderWorkerSchedule(){
@@ -2433,7 +2429,7 @@ function renderWorkerSchedule(){
     const isToday=i===1;
     html+=`<div class="card" style="margin-bottom:10px;${isToday?'border-color:var(--grn-bd);background:var(--grn-bg)':''}">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <div style="font-size:var(--small-fz);font-weight:800;${isToday?'color:var(--green)':''}">${s.day}${isToday?' · TODAY':''}</div>
+        <div style="font-size:var(--small-fz);font-weight:800;${isToday?'color:var(--green)':''}">${s.day}${isToday?` · ${t('w_today')}`:''}</div>
         <div class="chip ${isToday?'chip-g':'chip-m'}">${s.time}</div>
       </div>
       <div style="font-size:var(--body-fz);font-weight:700">${s.loc}</div>
@@ -2444,27 +2440,37 @@ function renderWorkerSchedule(){
   document.getElementById('w-schedule-scroll').innerHTML=html;
 }
 
+
 function renderWorkerEarnings(){
   const u=S.user;const tasks=WORKER_TASKS[u.email]||[];
-  const thisMonthEarn=tasks.reduce((a,t)=>a+(t.status==='done'?t.pay:0),0)+380000;
+  const thisMonthEarn=tasks.reduce((a,tk)=>a+(tk.status==='done'?tk.pay:0),0)+380000;
   const html=`
   <div style="padding:0 var(--page-pad)">
   <div class="earn-hero">
-    <div class="eh-lbl">Earned this month</div>
+    <div class="eh-lbl">${t('w_earn_this_month')}</div>
     <div class="eh-amt">$${thisMonthEarn.toLocaleString()} <span style="font-size:16px;opacity:.45">COP</span></div>
-    <div class="eh-sub">Paid directly · No admin cuts · PropOS fee only</div>
+    <div class="eh-sub">${t('w_paid_direct')}</div>
   </div>
-  <div class="slabel" style="padding:0 0 9px">This month breakdown</div>
+  <div class="slabel" style="padding:0 0 9px">${t('w_month_breakdown')}</div>
   <div class="card" style="margin-bottom:12px;padding:0;overflow:hidden">
-    ${[['✅ Mar 1–7','7 sessions','$95,000'],['✅ Mar 8–15','6 sessions','$84,000'],['✅ Mar 16–18','3 sessions','$42,000'],['⏳ Pending today','3 tasks left','$65,000']].map((r,i,a)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;${i<a.length-1?'border-bottom:1px solid var(--border)':''}"><div><div style="font-size:var(--body-fz);font-weight:700">${r[0]}</div><div style="font-size:12px;font-weight:600;color:var(--muted)">${r[1]}</div></div><div style="font-family:var(--font-head);font-size:16px;font-weight:800;color:var(--green)">${r[2]}</div></div>`).join('')}
+    ${(()=>{
+      const rows=[
+        ['✅ Mar 1–7',  '7 sessions', '$95,000'],
+        ['✅ Mar 8–15', '6 sessions', '$84,000'],
+        ['✅ Mar 16–18','3 sessions', '$42,000'],
+        [t('w_pending_today'), '3 '+t('w_tasks_left'), '$65,000'],
+      ];
+      return rows.map((r,i,a)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;${i<a.length-1?'border-bottom:1px solid var(--border)':''}"><div><div style="font-size:var(--body-fz);font-weight:700">${r[0]}</div><div style="font-size:12px;font-weight:600;color:var(--muted)">${r[1]}</div></div><div style="font-family:var(--font-head);font-size:16px;font-weight:800;color:var(--green)">${r[2]}</div></div>`).join('');
+    })()}
   </div>
   <div class="ibox ibox-g">
-    <div class="ibox-t" style="color:var(--green)">💸 How payment works</div>
-    <div class="ibox-b-text">When you mark a task complete, payment is processed automatically · No waiting · No admin · Goes directly to your registered bank account · Usually arrives same day</div>
+    <div class="ibox-t" style="color:var(--green)">${t('w_how_pay')}</div>
+    <div class="ibox-b-text">${t('w_how_pay_body')}</div>
   </div>
   </div>`;
   document.getElementById('w-earnings-scroll').innerHTML=html;
 }
+
 
 function acceptTask(id,btn){
   toast('Task accepted! Starting now →');
@@ -2559,33 +2565,29 @@ async function analyzeEvidence(evidenceData) {
   let aiReasoning = '';
   let aiVerdict = 'pending';
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    // Call via Supabase Edge Function (proxy keeps API key server-side)
+    const edgeFnUrl = SUPA_URL + '/functions/v1/claude-verdict';
+    const resp = await fetch(edgeFnUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 800,
-        system: `You are PropOS Legal AI — a strict noise violation judge for Colombian residential buildings.
-You apply Resolution 0627/2006 (Colombian environmental noise law) exactly.
-You respond ONLY in this exact JSON format with no other text:
-{
-  "verdict": "guilty" | "innocent" | "warning",
-  "confidence": 0-100,
-  "reasoning": "one sentence plain language explanation",
-  "findings": ["finding 1", "finding 2", "finding 3"],
-  "fine_multiplier": 1 | 2 | 3
-}`,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPA_KEY,
+      },
+      body: JSON.stringify({ prompt, evidenceSummary: {
+        peakDb: evidenceData.peakDb,
+        violations: evidenceData.violations,
+        isNight,
+        overLimit
+      }})
     });
     if (resp.ok) {
       const data = await resp.json();
-      const text = data.content?.[0]?.text || '{}';
-      const clean = text.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
-      aiVerdict = parsed.verdict || 'pending';
-      aiReasoning = parsed.reasoning || '';
-      return buildVerdictResult(parsed, evidenceData, isNight, limit, overLimit, priorOffences);
+      if (data.ok && data.verdict) {
+        const parsed = data.verdict;
+        aiVerdict   = parsed.verdict   || 'pending';
+        aiReasoning = parsed.reasoning || '';
+        return buildVerdictResult(parsed, evidenceData, isNight, limit, overLimit, priorOffences);
+      }
     }
   } catch(e) {
     console.warn('Claude API:', e.message);
@@ -2656,7 +2658,7 @@ function ruleBasedVerdict(ev, isNight, limit, overLimit, priorOffences) {
   let findings = [];
   let reasoning = '';
 
-  if (overLimit >= 20 && ev.violations >= 3) {
+  if (overLimit > 0 && ev.violations >= 1) {
     verdict = 'guilty'; confidence = 95;
     findings = [
       `Peak ${ev.peakDb} dB — ${overLimit} dB over the ${isNight?'night':'day'} limit of ${limit} dB`,
@@ -2665,7 +2667,7 @@ function ruleBasedVerdict(ev, isNight, limit, overLimit, priorOffences) {
       priorOffences > 0 ? `${priorOffences} prior offence${priorOffences>1?'s':''} on record` : 'First recorded offence',
     ];
     reasoning = `Evidence clearly exceeds legal limit by ${overLimit} dB with ${ev.violations} violations recorded.`;
-  } else if (overLimit >= 5 && ev.violations >= 1) {
+  } else if (overLimit > 0 && ev.violations === 0) {
     verdict = 'warning'; confidence = 70;
     findings = [
       `Peak ${ev.peakDb} dB — ${overLimit} dB over limit`,
@@ -3404,6 +3406,92 @@ const LANGS = {
     paid_on:    'Pagado el',
     // building status
     status_title:   'Estado del edificio',
+    nav_portfolio:'Portafolio',
+    nav_building:'Edificio',
+    nav_reports:'Informes',
+    nav_payments:'Pagos',
+    nav_unit:'Unidad',
+    nav_repair:'Reparación',
+    nav_home:'Inicio',
+    nav_report:'Reportar',
+    nav_cases:'Casos',
+    nav_evidence:'Evidencia',
+    nav_status:'Edificio',
+    nav_my_tasks:'Mis tareas',
+    nav_schedule:'Horario',
+    nav_earnings:'Ganancias',
+    nav_report_w:'Reportar',
+    nav_select_bld:'Selecciona un edificio primero',
+    nav_analytics_soon:'Análisis próximamente',
+    nav_payments_soon:'Pagos próximamente',
+    nav_report_soon:'Reporte próximamente',
+    o_portfolio:'Portafolio',
+    o_buildings:'Edificios',
+    o_your_units:'Tus unidades',
+    o_total_units:'Total unidades',
+    o_total_m2:'Total m²',
+    o_issues:'Alertas',
+    o_your_buildings:'Tus edificios',
+    o_your_share:'Tu participación en el edificio',
+    o_monthly_contrib:'Cuota mensual',
+    o_admin:'Administración',
+    o_cleaning_sessions:'Sesiones de limpieza',
+    o_your_n_units:'Tu unidad',
+    o_your_n_units_pl:'Tus {n} unidades',
+    o_monthly_fee:'Cuota mensual',
+    o_alerts:'⚠️ Alertas',
+    o_payment:'Pago',
+    o_cleaning:'Limpieza este mes',
+    o_repairs:'🔧 Solicitudes de reparación',
+    o_building_share:'Participación en el edificio',
+    o_no_repairs:'✅ Sin solicitudes pendientes',
+    o_paid:'Pagado a tiempo',
+    o_overdue:'ATRASADO',
+    o_due:'Vence',
+    o_days_late:'días de retraso',
+    o_sessions:'sesiones completadas',
+    o_send_reminder:'Enviar recordatorio de pago 🚨',
+    o_download_report:'📊 Descargar informe',
+    o_tap_detail:'Toca para ver detalle →',
+    o_no_issues:'✅ Sin problemas',
+    o_critical:'Crítico',
+    o_alert:'Alerta',
+    o_all_good:'Todo bien',
+    o_cleaning_pct:'Limpieza',
+    o_monthly_income:'Ingresos mensuales',
+    o_enterprise:'Empresa',
+    w_todays_earn:'Ganancias de hoy',
+    w_jobs_done:'trabajos hechos',
+    w_tasks_today:'Tareas hoy',
+    w_propos_fee:'Tarifa PropOS',
+    w_active_guar:'Garantías activas',
+    w_awaiting_rating:'⏳ Esperando calificación del cliente',
+    w_completed:'Completado',
+    w_days_left:'días para calificar',
+    w_day_left:'día para calificar',
+    w_rating_note:'Se cierra automáticamente como satisfecho en 5 días. Tu garantía de 3 meses está activa.',
+    w_my_tasks:'Mis tareas de hoy',
+    w_completed_today:'Completado hoy',
+    w_new:'Nuevo',
+    w_active:'Activo',
+    w_done:'Hecho',
+    w_accept:'Aceptar tarea',
+    w_skip:'Omitir',
+    w_mark_complete:'Marcar como hecho ✓',
+    w_after_fee:'(después del 3%)',
+    w_earned:'COP ganado',
+    w_today:'HOY',
+    w_earn_this_month:'Ganado este mes',
+    w_paid_direct:'Pago directo · Sin cortes · Solo tarifa PropOS',
+    w_month_breakdown:'Desglose del mes',
+    w_pending_today:'⏳ Pendiente hoy',
+    w_tasks_left:'tareas restantes',
+    w_how_pay:'💸 Cómo funciona el pago',
+    w_how_pay_body:'Cuando marcas una tarea como completada, el pago se procesa automáticamente · Sin espera · Sin intermediarios · Va directo a tu cuenta bancaria · Generalmente el mismo día',
+    w_my_schedule:'Mi horario',
+    w_this_week:'Esta semana',
+    w_my_earnings:'Mis ganancias',
+    w_no_middleman:'Pago directo — sin intermediarios',
     cleaned_today:  'Limpiado hoy',
     security_active:'Seguridad activa',
     elevator_repair:'Ascensor en reparación',
@@ -3440,6 +3528,12 @@ const LANGS = {
     desc_label:'Describe it',         desc_opt:'(optional)',
     evidence_shortcut:'Add evidence', evidence_sub:'Camera video or noise dB recording',
     submit_labels:{ noise:'Submit noise complaint →', cleaning:'Request cleaning →', private:'Book apartment cleaning →', security:'Send security alert →', repair:'Report repair needed →', other:'Send request →' },
+    what_need: 'What do you need?',
+    desc_placeholder: "Tell us what's happening...",
+    cat_repair_sub: 'Pipes · electricity · AC',
+    cat_cleaning_sub: 'Lobby · gym · pool',
+    cat_private_sub: 'Extra service inside',
+    cat_security_sub: 'Suspicious person',
     sent_ok:'Request sent! We are on it ✓',
     evidence_title:'Record evidence', evidence_sub2:'In-app only · GPS sealed · Cannot be faked',
     noise_meter_lbl:'Noise meter', noise_meter_sub:'Measures live dB · logs violations · AI uses it as evidence',
@@ -3451,7 +3545,93 @@ const LANGS = {
     active_cases:'Active cases — AI reviewing', resolved:'Resolved cases',
     ai_guilty:'🤖 AI Verdict: GUILTY', ai_innocent:'🤖 AI Verdict: NOT GUILTY', fine_charged:'Fine charged automatically',
     pay_title:'My payments', monthly_fee:'Your monthly fee', pay_history:'History', paid_on:'Paid on',
-    status_title:'Building status', cleaned_today:'Cleaned today', security_active:'Security active', elevator_repair:'Elevator under repair', active_case:'Active case', on_duty:'On duty today', announcements:'Announcements',
+    status_title:'Building status',
+    nav_portfolio:'Portfolio',
+    nav_building:'Building',
+    nav_reports:'Reports',
+    nav_payments:'Payments',
+    nav_unit:'Unit',
+    nav_repair:'Repair',
+    nav_home:'Home',
+    nav_report:'Report',
+    nav_cases:'Cases',
+    nav_evidence:'Evidence',
+    nav_status:'Building',
+    nav_my_tasks:'My tasks',
+    nav_schedule:'Schedule',
+    nav_earnings:'Earnings',
+    nav_report_w:'Report',
+    nav_select_bld:'Select a building first',
+    nav_analytics_soon:'Analytics coming soon',
+    nav_payments_soon:'Payments coming soon',
+    nav_report_soon:'Report issue coming soon',
+    o_portfolio:'Portfolio',
+    o_buildings:'Buildings',
+    o_your_units:'Your units',
+    o_total_units:'Total units',
+    o_total_m2:'Total m²',
+    o_issues:'Issues',
+    o_your_buildings:'Your buildings',
+    o_your_share:'Your share of building',
+    o_monthly_contrib:'Monthly contribution',
+    o_admin:'Admin',
+    o_cleaning_sessions:'Cleaning sessions',
+    o_your_n_units:'Your unit',
+    o_your_n_units_pl:'Your {n} units',
+    o_monthly_fee:'Monthly fee',
+    o_alerts:'⚠️ Alerts',
+    o_payment:'Payment',
+    o_cleaning:'Cleaning this month',
+    o_repairs:'🔧 Repair requests',
+    o_building_share:'Building share',
+    o_no_repairs:'✅ No pending repair requests',
+    o_paid:'Paid on time',
+    o_overdue:'OVERDUE',
+    o_due:'Due',
+    o_days_late:'days late',
+    o_sessions:'sessions done',
+    o_send_reminder:'Send payment reminder 🚨',
+    o_download_report:'📊 Download full report',
+    o_tap_detail:'Tap for full detail →',
+    o_no_issues:'✅ No issues',
+    o_critical:'Critical',
+    o_alert:'Alert',
+    o_all_good:'All good',
+    o_cleaning_pct:'Cleaning',
+    o_monthly_income:'Monthly income',
+    o_enterprise:'Enterprise',
+    w_todays_earn:"Today's earnings",
+    w_jobs_done:'jobs done',
+    w_tasks_today:'Tasks today',
+    w_propos_fee:'PropOS fee',
+    w_active_guar:'Active guarantees',
+    w_awaiting_rating:"⏳ Awaiting your client's rating",
+    w_completed:'Completed',
+    w_days_left:'days left to rate',
+    w_day_left:'day left to rate',
+    w_rating_note:'Rating auto-closes as satisfied after 5 days. Your 3-month guarantee is active.',
+    w_my_tasks:'My tasks today',
+    w_completed_today:'Completed today',
+    w_new:'New',
+    w_active:'Active',
+    w_done:'Done',
+    w_accept:'Accept task',
+    w_skip:'Skip',
+    w_mark_complete:'Mark complete ✓',
+    w_after_fee:'(after 3% fee)',
+    w_earned:'COP earned',
+    w_today:'TODAY',
+    w_earn_this_month:'Earned this month',
+    w_paid_direct:'Paid directly · No admin cuts · PropOS fee only',
+    w_month_breakdown:'This month breakdown',
+    w_pending_today:'⏳ Pending today',
+    w_tasks_left:'tasks left',
+    w_how_pay:'💸 How payment works',
+    w_how_pay_body:'When you mark a task complete, payment is processed automatically · No waiting · No admin · Goes directly to your registered bank account · Usually arrives same day',
+    w_my_schedule:'My schedule',
+    w_this_week:'This week',
+    w_my_earnings:'My earnings',
+    w_no_middleman:'Paid directly — no middleman', cleaned_today:'Cleaned today', security_active:'Security active', elevator_repair:'Elevator under repair', active_case:'Active case', on_duty:'On duty today', announcements:'Announcements',
   },
 
   pt: {
@@ -3482,6 +3662,12 @@ const LANGS = {
     desc_label:'Descreva', desc_opt:'(opcional)',
     evidence_shortcut:'Adicionar evidência', evidence_sub:'Vídeo ou gravação dB de ruído',
     submit_labels:{ noise:'Enviar reclamação →', cleaning:'Solicitar limpeza →', private:'Reservar limpeza →', security:'Enviar alerta →', repair:'Reportar dano →', other:'Enviar solicitação →' },
+    what_need: 'O que precisa?',
+    desc_placeholder: 'Nos diga o que está acontecendo...',
+    cat_noise_sub: 'Vizinho ruim · música alta',
+    cat_cleaning_sub: 'Lobby · academia · piscina',
+    cat_private_sub: 'Serviço extra · cobrado diretamente',
+    cat_security_sub: 'Pessoa suspeita',
     sent_ok:'Solicitação enviada! Estamos nisso ✓',
     evidence_title:'Gravar evidência', evidence_sub2:'Somente no app · GPS selado · Não pode ser falsificado',
     noise_meter_lbl:'Medidor de ruído', noise_meter_sub:'Mede dB ao vivo · registra violações · IA usa como evidência',
@@ -3493,18 +3679,104 @@ const LANGS = {
     active_cases:'Casos ativos — IA revisando', resolved:'Casos resolvidos',
     ai_guilty:'🤖 Veredicto IA: CULPADO', ai_innocent:'🤖 Veredicto IA: NÃO CULPADO', fine_charged:'Multa cobrada automaticamente',
     pay_title:'Meus pagamentos', monthly_fee:'Sua mensalidade', pay_history:'Histórico', paid_on:'Pago em',
-    status_title:'Status do edifício', cleaned_today:'Limpo hoje', security_active:'Segurança ativa', elevator_repair:'Elevador em reparo', active_case:'Caso ativo', on_duty:'De plantão hoje', announcements:'Avisos',
+    status_title:'Status do edifício',
+    nav_portfolio:'Portfólio',
+    nav_building:'Edifício',
+    nav_reports:'Relatórios',
+    nav_payments:'Pagamentos',
+    nav_unit:'Unidade',
+    nav_repair:'Reparo',
+    nav_home:'Início',
+    nav_report:'Reportar',
+    nav_cases:'Casos',
+    nav_evidence:'Evidência',
+    nav_status:'Edifício',
+    nav_my_tasks:'Minhas tarefas',
+    nav_schedule:'Horário',
+    nav_earnings:'Ganhos',
+    nav_report_w:'Reportar',
+    nav_select_bld:'Selecione um edifício primeiro',
+    nav_analytics_soon:'Análises em breve',
+    nav_payments_soon:'Pagamentos em breve',
+    nav_report_soon:'Reporte em breve',
+    o_portfolio:'Portfólio',
+    o_buildings:'Edifícios',
+    o_your_units:'Suas unidades',
+    o_total_units:'Total unidades',
+    o_total_m2:'Total m²',
+    o_issues:'Alertas',
+    o_your_buildings:'Seus edifícios',
+    o_your_share:'Sua participação no edifício',
+    o_monthly_contrib:'Contribuição mensal',
+    o_admin:'Administração',
+    o_cleaning_sessions:'Sessões de limpeza',
+    o_your_n_units:'Sua unidade',
+    o_your_n_units_pl:'Suas {n} unidades',
+    o_monthly_fee:'Taxa mensal',
+    o_alerts:'⚠️ Alertas',
+    o_payment:'Pagamento',
+    o_cleaning:'Limpeza este mês',
+    o_repairs:'🔧 Solicitações de reparo',
+    o_building_share:'Participação no edifício',
+    o_no_repairs:'✅ Sem solicitações pendentes',
+    o_paid:'Pago no prazo',
+    o_overdue:'ATRASADO',
+    o_due:'Vence',
+    o_days_late:'dias de atraso',
+    o_sessions:'sessões concluídas',
+    o_send_reminder:'Enviar lembrete de pagamento 🚨',
+    o_download_report:'📊 Baixar relatório',
+    o_tap_detail:'Toque para ver detalhes →',
+    o_no_issues:'✅ Sem problemas',
+    o_critical:'Crítico',
+    o_alert:'Alerta',
+    o_all_good:'Tudo bem',
+    o_cleaning_pct:'Limpeza',
+    o_monthly_income:'Renda mensal',
+    o_enterprise:'Empresa',
+    w_todays_earn:'Ganhos de hoje',
+    w_jobs_done:'trabalhos feitos',
+    w_tasks_today:'Tarefas hoje',
+    w_propos_fee:'Taxa PropOS',
+    w_active_guar:'Garantias ativas',
+    w_awaiting_rating:'⏳ Aguardando avaliação do cliente',
+    w_completed:'Concluído',
+    w_days_left:'dias para avaliar',
+    w_day_left:'dia para avaliar',
+    w_rating_note:'Avaliação fecha automaticamente como satisfeito em 5 dias. Sua garantia de 3 meses está ativa.',
+    w_my_tasks:'Minhas tarefas de hoje',
+    w_completed_today:'Concluído hoje',
+    w_new:'Novo',
+    w_active:'Ativo',
+    w_done:'Feito',
+    w_accept:'Aceitar tarefa',
+    w_skip:'Pular',
+    w_mark_complete:'Marcar como concluído ✓',
+    w_after_fee:'(após taxa de 3%)',
+    w_earned:'COP ganho',
+    w_today:'HOJE',
+    w_earn_this_month:'Ganhos este mês',
+    w_paid_direct:'Pagamento direto · Sem cortes · Apenas taxa PropOS',
+    w_month_breakdown:'Detalhes do mês',
+    w_pending_today:'⏳ Pendente hoje',
+    w_tasks_left:'tarefas restantes',
+    w_how_pay:'💸 Como funciona o pagamento',
+    w_how_pay_body:'Quando você marca uma tarefa como concluída, o pagamento é processado automaticamente · Sem espera · Sem intermediários · Direto na sua conta',
+    w_my_schedule:'Meu horário',
+    w_this_week:'Esta semana',
+    w_my_earnings:'Meus ganhos',
+    w_no_middleman:'Pagamento direto — sem intermediários', cleaned_today:'Limpo hoje', security_active:'Segurança ativa', elevator_repair:'Elevador em reparo', active_case:'Caso ativo', on_duty:'De plantão hoje', announcements:'Avisos',
   },
 
   fr: {
     flag:'🇫🇷', code:'FR',
-    tagline: 'Gestion d\'immeuble sans intermédiaire',
-    owner_title: 'Propriétaire', owner_sub:  'Biens et immeubles',
-    tenant_title: 'Résident',    tenant_sub: 'Signalez, payez, gérez',
-    worker_title: 'Employé',     worker_sub: 'Tâches, horaires, paiements',
-    age_title:'Choisissez votre expérience', age_sub:'La même app, faite pour vous',
+    tagline: "Gestion d'immeuble sans intermédiaire",
+    owner_title: 'Propriétaire',      owner_sub:  'Biens et immeubles',
+    tenant_title: 'Résident',         tenant_sub: 'Signalez, payez, gérez',
+    worker_title: 'Employé',          worker_sub: 'Tâches, horaires, paiements',
+    age_title:"Choisissez votre expérience", age_sub:'La même app, faite pour vous',
     age_gz_desc:'Moderne · Rapide · Sombre', age_ad_desc:'Propre · Professionnel · Clair', age_sr_desc:'Simple · Grande police · Facile',
-    login_hint_owner:'owner@propos.co / propos2026', login_hint_tenant:'luis@propos.co / luis2026', login_hint_worker:'jorge@propos.co / jorge2026',
+    login_hint_owner:'owner@propos.co / propos2026', login_hint_tenant:'luis@propos.co / luis2026', login_hint_worker:'maria@propos.co / maria2026',
     login_titles:{ owner:'Portail Propriétaire', tenant:'Connexion Résident', worker:'Connexion Employé' },
     login_subs:{ owner:'Connectez-vous pour gérer vos biens', tenant:'Connectez-vous à votre compte', worker:'Connectez-vous pour voir vos tâches' },
     login_btn:'Se connecter',
@@ -3514,7 +3786,7 @@ const LANGS = {
     record_evidence:'Enregistrer preuve', record_sub:'Caméra + sonomètre',
     emergency:'Urgence', emergency_sub:'Appeler la sécurité',
     recent_req:'Demandes récentes', ongoing_rep:'Réparations en cours', workers_now:'Employés en service',
-    report_title:'Signaler ou demander', report_sub:'Dites-nous ce qu\'il faut — on s\'en occupe',
+    report_title:'Signaler ou demander', report_sub:"Dites-nous ce qu'il faut — on s'en occupe",
     cat_noise:'Plainte de bruit',          cat_noise_sub:'Mauvais voisin · musique forte',
     cat_cleaning:'Nettoyage commun',       cat_cleaning_sub:'Hall · salle de sport · piscine',
     cat_private:'Nettoyer mon appartement',cat_private_sub:'Service extra · facturé directement',
@@ -3522,20 +3794,109 @@ const LANGS = {
     cat_repair:'Quelque chose est cassé',  cat_repair_sub:'Lumières · ascenseur · plomberie',
     cat_other:'Autre chose',               cat_other_sub:'Toute autre demande',
     desc_label:'Décrivez', desc_opt:'(optionnel)',
+    what_need:"Que faut-il?",
     evidence_shortcut:'Ajouter une preuve', evidence_sub:'Vidéo ou enregistrement dB',
     submit_labels:{ noise:'Soumettre la plainte →', cleaning:'Demander nettoyage →', private:'Réserver nettoyage →', security:'Envoyer alerte →', repair:'Signaler réparation →', other:'Envoyer demande →' },
-    sent_ok:'Demande envoyée ! On s\'en occupe ✓',
+    sent_ok:"Demande envoyée ! On s'en occupe ✓",
     evidence_title:'Enregistrer preuve', evidence_sub2:'App uniquement · GPS scellé · Infalsifiable',
     noise_meter_lbl:'Sonomètre', noise_meter_sub:'Mesure dB en direct · enregistre violations · IA utilise comme preuve',
     video_ev_lbl:'Preuve vidéo', video_ev_sub:'GPS · horodatage · sceau PropOS',
-    only_inapp:'⚠️ Seules les vidéos enregistrées dans cette app sont acceptées.',
-    why_inapp_title:'🔒 Pourquoi uniquement dans l\'app ?', why_inapp_body:'Les vidéos externes peuvent être modifiées. La preuve PropOS est cryptographiquement signée à la capture.',
+    only_inapp:"⚠️ Seules les vidéos enregistrées dans cette app sont acceptées.",
+    why_inapp_title:"🔒 Pourquoi uniquement dans l'app ?", why_inapp_body:'Les vidéos externes peuvent être modifiées. La preuve PropOS est cryptographiquement signée à la capture.',
     saved_evidence:'Preuves sauvegardées', attach:'Joindre',
-    fines_lbl:'Amendes perçues ce mois', fines_sub:'Va à la maintenance de l\'immeuble',
+    fines_lbl:'Amendes perçues ce mois', fines_sub:"Va à la maintenance de l'immeuble",
     active_cases:'Cas actifs — IA en cours', resolved:'Cas résolus',
     ai_guilty:'🤖 Verdict IA : COUPABLE', ai_innocent:'🤖 Verdict IA : NON COUPABLE', fine_charged:'Amende prélevée automatiquement',
     pay_title:'Mes paiements', monthly_fee:'Votre mensualité', pay_history:'Historique', paid_on:'Payé le',
-    status_title:"Statut de l'immeuble", cleaned_today:'Nettoyé aujourd\'hui', security_active:'Sécurité active', elevator_repair:'Ascenseur en réparation', active_case:'Cas actif', on_duty:'En service aujourd\'hui', announcements:'Annonces',
+    status_title:"Statut de l'immeuble",
+    nav_portfolio:'Portefeuille',
+    nav_building:'Immeuble',
+    nav_reports:'Rapports',
+    nav_payments:'Paiements',
+    nav_unit:'Unité',
+    nav_repair:'Réparation',
+    nav_home:'Accueil',
+    nav_report:'Signaler',
+    nav_cases:'Cas',
+    nav_evidence:'Preuve',
+    nav_status:'Immeuble',
+    nav_my_tasks:'Mes tâches',
+    nav_schedule:'Planning',
+    nav_earnings:'Gains',
+    nav_report_w:'Signaler',
+    nav_select_bld:"Sélectionnez d'abord un immeuble",
+    nav_analytics_soon:'Analyses bientôt',
+    nav_payments_soon:'Paiements bientôt',
+    nav_report_soon:'Signalement bientôt',
+    o_portfolio:'Portefeuille',
+    o_buildings:'Immeubles',
+    o_your_units:'Vos unités',
+    o_total_units:'Total unités',
+    o_total_m2:'Total m²',
+    o_issues:'Alertes',
+    o_your_buildings:'Vos immeubles',
+    o_your_share:"Votre part de l'immeuble",
+    o_monthly_contrib:'Contribution mensuelle',
+    o_admin:'Administration',
+    o_cleaning_sessions:'Séances de nettoyage',
+    o_your_n_units:'Votre unité',
+    o_your_n_units_pl:'Vos {n} unités',
+    o_monthly_fee:'Mensualité',
+    o_alerts:'⚠️ Alertes',
+    o_payment:'Paiement',
+    o_cleaning:'Nettoyage ce mois',
+    o_repairs:'🔧 Demandes de réparation',
+    o_building_share:"Part de l'immeuble",
+    o_no_repairs:'✅ Aucune demande en attente',
+    o_paid:'Payé à temps',
+    o_overdue:'EN RETARD',
+    o_due:'Échéance',
+    o_days_late:'jours de retard',
+    o_sessions:'séances faites',
+    o_send_reminder:'Envoyer rappel de paiement 🚨',
+    o_download_report:'📊 Télécharger le rapport',
+    o_tap_detail:'Appuyez pour les détails →',
+    o_no_issues:'✅ Aucun problème',
+    o_critical:'Critique',
+    o_alert:'Alerte',
+    o_all_good:'Tout va bien',
+    o_cleaning_pct:'Nettoyage',
+    o_monthly_income:'Revenus mensuels',
+    o_enterprise:'Entreprise', cleaned_today:"Nettoyé aujourd'hui", security_active:'Sécurité active', elevator_repair:'Ascenseur en réparation', active_case:'Cas actif', on_duty:"En service aujourd'hui", announcements:'Annonces',
+    desc_placeholder:"Dites-nous ce qui se passe...",
+    cat_repair_sub:'Canalisations · électricité · clim', cat_cleaning_sub:'Hall · salle de sport · piscine', cat_private_sub:'Service extra · facturation directe', cat_security_sub:'Personne suspecte · incident', cat_other_sub:'Toute autre demande',
+    w_todays_earn:"Gains d'aujourd'hui",
+    w_jobs_done:'missions faites',
+    w_tasks_today:"Tâches aujourd'hui",
+    w_propos_fee:'Frais PropOS',
+    w_active_guar:'Garanties actives',
+    w_awaiting_rating:'⏳ En attente de note du client',
+    w_completed:'Terminé',
+    w_days_left:'jours pour noter',
+    w_day_left:'jour pour noter',
+    w_rating_note:"L'évaluation se ferme automatiquement comme satisfait après 5 jours. Votre garantie de 3 mois est active.",
+    w_my_tasks:"Mes tâches aujourd'hui",
+    w_completed_today:"Terminé aujourd'hui",
+    w_new:'Nouveau',
+    w_active:'Actif',
+    w_done:'Fait',
+    w_accept:'Accepter la tâche',
+    w_skip:'Ignorer',
+    w_mark_complete:'Marquer comme terminé ✓',
+    w_after_fee:'(après frais 3%)',
+    w_earned:'COP gagné',
+    w_today:"AUJOURD'HUI",
+    w_earn_this_month:'Gagné ce mois',
+    w_paid_direct:'Paiement direct · Sans intermédiaires · Frais PropOS seulement',
+    w_month_breakdown:'Détail du mois',
+    w_pending_today:"⏳ En attente aujourd'hui",
+    w_tasks_left:'tâches restantes',
+    w_how_pay:'💸 Comment fonctionne le paiement',
+    w_how_pay_body:"Quand vous marquez une tâche comme terminée, le paiement est traité automatiquement · Sans attente · Sans intermédiaire · Directement sur votre compte",
+    w_my_schedule:'Mon planning',
+    w_this_week:'Cette semaine',
+    w_my_earnings:'Mes gains',
+    w_no_middleman:'Paiement direct — sans intermédiaire',
   }
 };
 
@@ -3621,6 +3982,7 @@ function setLang(lang) {
     }
   }
 
+  updateNavLabels();
   toast(L.flag + ' ' + L.code, 'g');
 }
 
@@ -4220,5 +4582,57 @@ selectCat = function(cat) {
   S._currentCat = cat;
   _selectCatBase(cat);
 };
+
+
+/* ════════════════════════════════════════
+   UPDATE ALL NAV BAR LABELS ON LANG CHANGE
+════════════════════════════════════════ */
+function updateNavLabels() {
+  const map = {
+    // Owner nav labels
+    'nl-portfolio':  t('nav_portfolio'),
+    'nl-building':   t('nav_building'),
+    'nl-reports':    t('nav_reports'),
+    'nl-unit':       t('nav_unit'),
+    'nl-repair':     t('nav_repair'),
+    // Tenant nav labels
+    'nl-home':       t('nav_home'),
+    'nl-report':     t('nav_report'),
+    'nl-cases':      t('nav_cases'),
+    'nl-evidence':   t('nav_evidence'),
+    'nl-status':     t('nav_status'),
+    // Worker nav labels
+    'nl-my-tasks':   t('nav_my_tasks'),
+    'nl-mytasks':    t('nav_my_tasks'),
+    'nl-schedule':   t('nav_schedule'),
+    'nl-earnings':   t('nav_earnings'),
+    'nl-report-w':   t('nav_report_w'),
+    // Shared
+    'nl-payments':   t('nav_payments'),
+    'nl-job-detail': t('nav_repair'),
+  };
+
+  // Update all numbered variants (nl-portfolio-1, nl-portfolio-2, etc.)
+  Object.entries(map).forEach(([base, label]) => {
+    // Try without number first
+    const el0 = document.getElementById(base);
+    if (el0) el0.textContent = label;
+    // Try numbered variants 1–12
+    for (let i = 1; i <= 12; i++) {
+      const el = document.getElementById(base + '-' + i);
+      if (el) el.textContent = label;
+    }
+  });
+
+  // Also update toast messages in onclick handlers dynamically
+  // (select building, analytics coming soon, etc.)
+  document.querySelectorAll('.bni[onclick*="Select a building"]').forEach(el => {
+    el.setAttribute('onclick', el.getAttribute('onclick')
+      .replace(/Select a building first/g, t('nav_select_bld'))
+      .replace(/Selecciona un edificio primero/g, t('nav_select_bld'))
+      .replace(/Selecione um edifício primeiro/g, t('nav_select_bld'))
+    );
+  });
+}
 
 </script>
